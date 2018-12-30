@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/action_recommended"
+        android:title="Recommended"
+        android:icon="@drawable/bottom_nav_recommended"/>
+  <item android:id="@+id/action_events"
+        android:title="Events"
+        android:icon="@drawable/bottom_nav_events"/>
+  <item android:id="@+id/action_places"
+        android:title="Near you"
+        android:icon="@drawable/bottom_nav_places"/>
+  <item android:id="@+id/action_search"
+        android:title="Search"
+        android:icon="@drawable/bottom_nav_search"/>
+</menu>
