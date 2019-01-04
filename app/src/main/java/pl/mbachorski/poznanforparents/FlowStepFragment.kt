@@ -20,30 +20,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.Navigation
 
-/**
- * Fragment used to show how to navigate to another destination
- */
-class HomeFragment : Fragment() {
+class FlowStepFragment : Fragment() {
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
     setHasOptionsMenu(true)
-    return inflater.inflate(R.layout.home_fragment, container, false)
+
+    arguments?.let {
+      // Uses type-safe arguments:
+      val safeArgs = FlowStepFragmentArgs.fromBundle(it)
+      val flowStepNumber = safeArgs.flowStepNumber
+    }
+
+    return inflater.inflate(R.layout.flow_step_one_fragment, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    view.findViewById<Button>(R.id.navigate_action_button)?.setOnClickListener {
-      val action = HomeFragmentDirections.nextAction()
-      action.flowStepNumber = 1
-      findNavController().navigate(action)
-    }
+    view.findViewById<View>(R.id.next_button).setOnClickListener(
+      Navigation.createNavigateOnClickListener(R.id.next_action)
+    )
   }
 }
