@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <!-- Light theme - default -->
   <color name="colorPrimary">#234793</color>
   <color name="colorPrimaryDark">#09345E</color>
   <color name="colorAccent">#D81B60</color>
-  <color name="colorLight">#EEEEEE</color>
+
+  <!-- Dark theme-->
+  <color name="colorPrimaryThemeDark">#012571</color>
+  <color name="colorPrimaryDarkThemeDark">#07123A</color>
+  <color name="colorAccentThemeDark">#B60940</color>
 </resources>

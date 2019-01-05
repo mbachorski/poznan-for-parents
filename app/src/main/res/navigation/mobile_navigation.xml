@@ -34,9 +34,9 @@
   </fragment>
 
   <fragment
-      android:id="@+id/settings_dest"
-      android:name="pl.mbachorski.poznanforparents.SettingsFragment"
+      android:id="@+id/preferences_dest"
+      android:name="pl.mbachorski.poznanforparents.PreferencesFragment"
       android:label="@string/settings"
-      tools:layout="@layout/settings_fragment"/>
+  />
 
 </navigation>

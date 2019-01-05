@@ -2,10 +2,9 @@
 
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-    <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
+    <item name="colorPrimary">?themeColorPrimary</item>
+    <item name="colorPrimaryDark">?themeColorPrimaryDark</item>
+    <item name="colorAccent">?themeColorAccent</item>
   </style>
   <style name="AppTheme.NoActionBar">
     <item name="windowActionBar">false</item>
@@ -13,5 +12,36 @@
   </style>
   <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
   <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+  <!-- DARK -->
+  <style name="AppThemeDark" parent="AppTheme">
+    <item name="themeColorPrimary">@color/colorPrimaryThemeDark</item>
+    <item name="themeColorPrimaryDark">@color/colorPrimaryDarkThemeDark</item>
+    <item name="themeColorAccent">@color/colorAccentThemeDark</item>
+    <!-- MainNavHeader-->
+    <item name="mainNavHeaderBackground">@drawable/side_nav_bar_dark</item>
+    <item name="mainNavHeaderImage">@mipmap/ic_launcher_dark</item>
+  </style>
+
+  <style name="AppThemeDark.NoActionBar" parent="AppThemeDark">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+  </style>
+
+  <!-- LIGHT -->
+  <style name="AppThemeLight" parent="AppTheme">
+    <item name="themeColorPrimary">@color/colorPrimary</item>
+    <item name="themeColorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="themeColorAccent">@color/colorAccent</item>
+    <!-- MainNavHeader-->
+    <item name="mainNavHeaderBackground">@drawable/side_nav_bar</item>
+    <item name="mainNavHeaderImage">@mipmap/ic_launcher</item>
+
+  </style>
+
+  <style name="AppThemeLight.NoActionBar" parent="AppThemeLight">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+  </style>
 
 </resources>

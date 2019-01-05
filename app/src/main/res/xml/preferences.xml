@@ -1,0 +1,30 @@
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+  <PreferenceCategory
+      app:title="Application preferences">
+    <ListPreference
+        app:iconSpaceReserved="false"
+        app:key="theme"
+        app:summary="%s"
+        app:entries="@array/preferences_theme_options"
+        app:entryValues="@array/preferences_theme_values"
+        app:defaultValue="0"
+        app:title="Select theme"/>
+  </PreferenceCategory>
+
+  <PreferenceCategory
+      app:title="Sample preferences">
+    <SwitchPreferenceCompat
+        app:key="notifications"
+        app:iconSpaceReserved="false"
+        app:title="Enable message notifications"/>
+
+    <Preference
+        app:key="feedback"
+        app:iconSpaceReserved="false"
+        app:title="Send feedback"
+        app:summary="Report technical issues or suggest new features"/>
+  </PreferenceCategory>
+
+
+</androidx.preference.PreferenceScreen>

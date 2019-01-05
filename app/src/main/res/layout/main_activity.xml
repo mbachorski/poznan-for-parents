@@ -33,7 +33,7 @@
 
     <!-- PLACE FOR FRAGMENTS -->
     <fragment
-        android:id="@+id/my_nav_host_fragment"
+        android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_gravity="center"
         android:layout_width="match_parent"
@@ -50,18 +50,18 @@
         android:layout_height="@dimen/bottom_navigation_height"
         android:layout_gravity="bottom"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/my_navigation_items"/>
+        app:menu="@menu/bottom_navigation_items"/>
 
   </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
   <!-- LEFT DRAWER -->
   <com.google.android.material.navigation.NavigationView
-      android:id="@+id/nav_view"
+      android:id="@+id/navigation_drawer_left"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
       android:layout_gravity="start"
       android:fitsSystemWindows="true"
       app:headerLayout="@layout/main_nav_header"
-      app:menu="@menu/activity_main_drawer"/>
+      app:menu="@menu/navigation_drawer_left"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
