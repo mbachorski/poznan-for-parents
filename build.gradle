@@ -20,6 +20,11 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            // for https://github.com/faruktoptas/RetrofitRssConverterFactory
+            url "https://jitpack.io"
+        }
+
     }
 }
 

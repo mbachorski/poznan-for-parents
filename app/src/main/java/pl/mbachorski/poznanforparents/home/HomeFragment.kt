@@ -14,20 +14,34 @@
  * limitations under the License.
  */
 
-package pl.mbachorski.poznanforparents
+package pl.mbachorski.poznanforparents.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import pl.mbachorski.poznanforparents.R
+import pl.mbachorski.ui.simplelist.SimpleListAdapter
+import pl.mbachorski.ui.simplelist.SimpleListItem
 
 /**
  * Fragment used to show how to navigate to another destination
  */
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), HomeView {
+  private lateinit var presenter: HomePresenter
+  private lateinit var adapter: SimpleListAdapter
+
+  override fun showMessage() {
+    Snackbar.make(view!!, "Message from presenter", Snackbar.LENGTH_SHORT).show()
+  }
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -35,6 +49,15 @@ class HomeFragment : Fragment() {
   ): View? {
     setHasOptionsMenu(true)
     return inflater.inflate(R.layout.home_fragment, container, false)
+  }
+
+  private fun setupPresenter() {
+    presenter = HomePresenter(this)
+    presenter.load()
+  }
+
+  override fun updateData(newItems: List<SimpleListItem>) {
+    adapter.updateData(newItems)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,5 +68,24 @@ class HomeFragment : Fragment() {
       action.flowStepNumber = 1
       findNavController().navigate(action)
     }
+
+    fillList(view)
+
+    setupPresenter()
+  }
+
+  private fun fillList(view: View) {
+    Log.v("LIST", "fillList")
+    val homeList = view.findViewById<RecyclerView>(R.id.home_list)
+    val items = mutableListOf<SimpleListItem>()
+    for (i in 0..100) {
+      items.add(HomeListItem("item: [$i]"))
+    }
+    adapter = SimpleListAdapter(items)
+
+    homeList.layoutManager = LinearLayoutManager(activity)
+    homeList.adapter = adapter
+    Log.v("LIST", "adapter set")
+    adapter.notifyDataSetChanged()
   }
 }
