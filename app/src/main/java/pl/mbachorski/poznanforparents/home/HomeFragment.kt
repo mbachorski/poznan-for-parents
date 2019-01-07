@@ -27,6 +27,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import org.koin.android.ext.android.inject
 import pl.mbachorski.poznanforparents.R
 import pl.mbachorski.ui.simplelist.SimpleListAdapter
 import pl.mbachorski.ui.simplelist.SimpleListItem
@@ -37,6 +38,9 @@ import pl.mbachorski.ui.simplelist.SimpleListItem
 class HomeFragment : Fragment(), HomeView {
   private lateinit var presenter: HomePresenter
   private lateinit var adapter: SimpleListAdapter
+
+  // Lazy injected MySimplePresenter
+  val helloPresenter: MyHelloPresenter by inject()
 
   override fun showMessage() {
     Snackbar.make(view!!, "Message from presenter", Snackbar.LENGTH_SHORT).show()
@@ -54,6 +58,9 @@ class HomeFragment : Fragment(), HomeView {
   private fun setupPresenter() {
     presenter = HomePresenter(this)
     presenter.load()
+
+    // testing koin
+    Log.v("KOIN", helloPresenter.sayHello())
   }
 
   override fun updateData(newItems: List<SimpleListItem>) {
