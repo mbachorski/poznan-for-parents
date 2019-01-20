@@ -47,6 +47,10 @@ dependencies {
 
     // 3rd party
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
+    //    https://github.com/amitshekhariitbhu/Android-Debug-Database
+    //    causes problems with dependency versions of room
+    //    https://stackoverflow.com/a/47383261/770305
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 
     // koin
     implementation 'org.koin:koin-android:1.0.2'

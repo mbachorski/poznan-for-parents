@@ -6,11 +6,14 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.main_activity.*
+import pl.mbachorski.rss.RssFactory
+import pl.mbachorski.rss.data.Article
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,6 +36,22 @@ class MainActivity : AppCompatActivity() {
     toggle.syncState()
 
     setupNavigationDrawer()
+
+    testArticlesDb()
+  }
+
+  private fun testArticlesDb() {
+    val repository = RssFactory.getArticleRepository(this.applicationContext)
+    repository.getArticles().observe(this, Observer { t -> logArticlesChange(t) })
+
+    val articles = mutableListOf<Article>()
+    articles.add(Article("b", "a", "a", "a", "a", "a"))
+    repository.insertAll(articles)
+  }
+
+  private fun logArticlesChange(articles: List<Article>) {
+    Log.v("RSS", "TEST: " + articles.size)
+    articles.forEach { Log.v("RSS", it.toString()) }
   }
 
   private fun setAppTheme() {
