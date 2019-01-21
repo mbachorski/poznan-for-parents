@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs'
 
 android {
@@ -54,7 +55,7 @@ dependencies {
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
     kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
     implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
-    
+
     // for preferences fragment
     implementation 'androidx.preference:preference:1.0.0'
 
