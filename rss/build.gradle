@@ -45,7 +45,6 @@ dependencies {
     implementation 'com.github.faruktoptas:RetrofitRssConverterFactory:0.1.0'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
-
     kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
     implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
 

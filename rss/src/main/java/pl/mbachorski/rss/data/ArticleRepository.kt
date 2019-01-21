@@ -1,6 +1,6 @@
 package pl.mbachorski.rss.data
 
-class ArticleRepository private constructor(private val articleDao: ArticleDao) {
+public class ArticleRepository private constructor(private val articleDao: ArticleDao) {
 
   fun getArticles() = articleDao.getArticles()
 

@@ -17,54 +17,52 @@
 package pl.mbachorski.poznanforparents.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.inject
 import pl.mbachorski.poznanforparents.R
-import pl.mbachorski.ui.simplelist.SimpleListAdapter
-import pl.mbachorski.ui.simplelist.SimpleListItem
+import pl.mbachorski.poznanforparents.TempDi
+import pl.mbachorski.poznanforparents.databinding.HomeFragmentBinding
 
 /**
  * Fragment used to show how to navigate to another destination
  */
-class HomeFragment : Fragment(), HomeView {
-  private lateinit var presenter: HomePresenter
-  private lateinit var adapter: SimpleListAdapter
+class HomeFragment : Fragment() {
+
+  private lateinit var viewModel: ArticleListViewModel
 
   // Lazy injected MySimplePresenter
   val helloPresenter: MyHelloPresenter by inject()
-
-  override fun showMessage() {
-    Snackbar.make(view!!, "Message from presenter", Snackbar.LENGTH_SHORT).show()
-  }
 
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
+    val binding = HomeFragmentBinding.inflate(inflater, container, false)
+    val context = context ?: return binding.root
+
+    val factory = TempDi.provideArticleListViewModelFactory(context)
+    viewModel = ViewModelProviders.of(this, factory).get(ArticleListViewModel::class.java)
+
+    val adapter = ArticleAdapter()
+    binding.articleList.adapter = adapter
+    subscribeUi(adapter)
+
     setHasOptionsMenu(true)
-    return inflater.inflate(R.layout.home_fragment, container, false)
+    return binding.root
   }
 
-  private fun setupPresenter() {
-    presenter = HomePresenter(this)
-    presenter.load()
-
-    // testing koin
-    Log.v("KOIN", helloPresenter.sayHello())
-  }
-
-  override fun updateData(newItems: List<SimpleListItem>) {
-    adapter.updateData(newItems)
+  private fun subscribeUi(adapter: ArticleAdapter) {
+    viewModel.getArticles().observe(viewLifecycleOwner, Observer { articles ->
+      if (articles != null) adapter.submitList(articles)
+    })
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,24 +73,5 @@ class HomeFragment : Fragment(), HomeView {
       action.flowStepNumber = 1
       findNavController().navigate(action)
     }
-
-    fillList(view)
-
-    setupPresenter()
-  }
-
-  private fun fillList(view: View) {
-    Log.v("LIST", "fillList")
-    val homeList = view.findViewById<RecyclerView>(R.id.home_list)
-    val items = mutableListOf<SimpleListItem>()
-    for (i in 0..100) {
-      items.add(HomeListItem("item: [$i]"))
-    }
-    adapter = SimpleListAdapter(items)
-
-    homeList.layoutManager = LinearLayoutManager(activity)
-    homeList.adapter = adapter
-    Log.v("LIST", "adapter set")
-    adapter.notifyDataSetChanged()
   }
 }

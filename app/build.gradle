@@ -19,6 +19,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -42,6 +49,12 @@ dependencies {
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.0.0'
     implementation 'android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha09'
     implementation 'android.arch.navigation:navigation-ui-ktx:1.0.0-alpha09'
+    implementation "androidx.recyclerview:recyclerview:1.0.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
+    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+    kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
+    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+    
     // for preferences fragment
     implementation 'androidx.preference:preference:1.0.0'
 

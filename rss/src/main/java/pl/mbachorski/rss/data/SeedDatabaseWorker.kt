@@ -15,18 +15,18 @@ class SeedDatabaseWorker(context: Context, workerParams: WorkerParameters) :
   private val TAG by lazy { SeedDatabaseWorker::class.java.simpleName }
 
   override fun doWork(): Result {
-    val plantType = object : TypeToken<List<Article>>() {}.type
+    val articleType = object : TypeToken<List<Article>>() {}.type
     var jsonReader: JsonReader? = null
 
     return try {
       val inputStream = applicationContext.assets.open(ARTICLES_DATA_FILENAME)
       jsonReader = JsonReader(inputStream.reader())
-      val plantList: List<Article> = Gson().fromJson(jsonReader, plantType)
+      val articleList: List<Article> = Gson().fromJson(jsonReader, articleType)
 
-      Log.v("RSS", "Inserting to DB: " + plantList.size)
+      Log.v("RSS", "Inserting to DB: " + articleList.size)
 
       val database = AppDatabase.getInstance(applicationContext)
-      database.articleDao().insertAll(plantList)
+      database.articleDao().insertAll(articleList)
 
 
       Log.v("RSS", "Inserted to DB size: " + database.articleDao().getArticles().value?.size)

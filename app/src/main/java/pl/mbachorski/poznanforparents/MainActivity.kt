@@ -45,7 +45,8 @@ class MainActivity : AppCompatActivity() {
     repository.getArticles().observe(this, Observer { t -> logArticlesChange(t) })
 
     val articles = mutableListOf<Article>()
-    articles.add(Article("b", "a", "a", "a", "a", "a"))
+    articles.add(Article("c", "a", "https://www.google" +
+        ".com/logos/doodles/2019/grandfathers-day-2019-5162741101756416-s.png", "a", "a", "a"))
     repository.insertAll(articles)
   }
 
