@@ -2,6 +2,7 @@
 
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="android:windowContentTransitions">true</item>
     <item name="colorPrimary">?themeColorPrimary</item>
     <item name="colorPrimaryDark">?themeColorPrimaryDark</item>
     <item name="colorAccent">?themeColorAccent</item>

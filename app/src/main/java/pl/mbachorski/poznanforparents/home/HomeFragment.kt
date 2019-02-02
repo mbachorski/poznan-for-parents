@@ -24,7 +24,9 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.home_fragment.*
 import org.koin.android.ext.android.inject
 import pl.mbachorski.poznanforparents.R
 import pl.mbachorski.poznanforparents.TempDi
@@ -69,9 +71,10 @@ class HomeFragment : Fragment() {
     super.onViewCreated(view, savedInstanceState)
 
     view.findViewById<Button>(R.id.navigate_action_button)?.setOnClickListener {
+      val extras = FragmentNavigatorExtras(home_small_image to "hawaii")
       val action = HomeFragmentDirections.nextAction()
       action.flowStepNumber = 1
-      findNavController().navigate(action)
+      findNavController().navigate(action, extras)
     }
   }
 }

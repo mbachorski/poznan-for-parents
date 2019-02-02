@@ -7,6 +7,15 @@
     android:layout_height="match_parent"
     tools:context="pl.mbachorski.poznanforparents.FlowStepFragment">
 
+  <ImageView
+      android:id="@+id/step_one_big_image"
+      android:transitionName="hawaii"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:scaleType="centerCrop"
+      app:layout_constraintTop_toTopOf="parent"
+      android:src="@drawable/hawaii"/>
+
   <TextView
       android:id="@+id/text"
       android:layout_width="match_parent"

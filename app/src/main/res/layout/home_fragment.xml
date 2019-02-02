@@ -10,6 +10,15 @@
       android:background="#FF0000"
       tools:context="pl.mbachorski.poznanforparents.home.HomeFragment">
 
+    <ImageView
+        android:id="@+id/home_small_image"
+        android:transitionName="hawaii"
+        android:layout_width="240dp"
+        android:layout_height="120dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/hawaii"/>
+
     <TextView
         android:id="@+id/text"
         android:layout_width="match_parent"
