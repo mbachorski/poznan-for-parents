@@ -11,4 +11,5 @@
   <string name="settings">settings</string>
   <string name="step_one">step one</string>
   <string name="next_step_button">next</string>
+  <string name="a11y_article_item_image">article description</string>
 </resources>

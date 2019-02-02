@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs'
 
 android {
@@ -18,6 +19,13 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -42,11 +50,21 @@ dependencies {
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.0.0'
     implementation 'android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha09'
     implementation 'android.arch.navigation:navigation-ui-ktx:1.0.0-alpha09'
+    implementation "androidx.recyclerview:recyclerview:1.0.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
+    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+    kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
+    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+
     // for preferences fragment
     implementation 'androidx.preference:preference:1.0.0'
 
     // 3rd party
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
+    //    https://github.com/amitshekhariitbhu/Android-Debug-Database
+    //    causes problems with dependency versions of room
+    //    https://stackoverflow.com/a/47383261/770305
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 
     // koin
     implementation 'org.koin:koin-android:1.0.2'

@@ -6,11 +6,18 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.navigation.NavigationView
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.main_activity.*
+import pl.mbachorski.poznanforparents.rss.printList
+import pl.mbachorski.poznanforparents.rss.toArticles
+import pl.mbachorski.rss.RssFactory
+import pl.mbachorski.rss.data.Article
+import pl.mbachorski.rss.domain.RssFeedItem
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,6 +40,34 @@ class MainActivity : AppCompatActivity() {
     toggle.syncState()
 
     setupNavigationDrawer()
+
+    testArticlesDbCnet()
+  }
+
+  // --------------
+  private val subject = PublishSubject.create<List<RssFeedItem>>()
+
+  private fun testArticlesDbCnet() {
+    // INIT REPOSOTORY LOGGING
+    val repository = RssFactory.getArticleRepository(this.applicationContext)
+    repository.getArticles().observe(this, Observer { t -> logArticlesChange(t) })
+
+    // INIT RSS DOWNLOADER LISTENER
+    subject.subscribe {
+      Log.v("RSS", "onNext: ${it.size}")
+      it.printList()
+      repository.insertAll(it.toArticles("CNET"))
+    }
+
+    // GET RSS FEED
+    TempDi.provideRssService().subscribeForFeed(subject)
+  }
+//---------------
+
+
+  private fun logArticlesChange(articles: List<Article>) {
+    Log.v("RSS", "TEST: " + articles.size)
+    articles.forEach { Log.v("RSS", it.toString()) }
   }
 
   private fun setAppTheme() {
@@ -65,19 +100,4 @@ class MainActivity : AppCompatActivity() {
       super.onBackPressed()
     }
   }
-
-//  override fun onNavigationItemSelected(item: MenuItem): Boolean {
-//    // Handle navigation view item clicks here.
-//    when (item.itemId) {
-//      R.id.nav_preferences -> {
-//
-//      }
-//      R.id.nav_share -> {
-//
-//      }
-//    }
-//
-//    drawer_layout.closeDrawer(GravityCompat.START)
-//    return true
-//  }
 }
