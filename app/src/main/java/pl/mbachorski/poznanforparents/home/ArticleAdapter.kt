@@ -16,9 +16,11 @@
 
 package pl.mbachorski.poznanforparents.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +36,7 @@ class ArticleAdapter : ListAdapter<Article, ArticleAdapter.ViewHolder>(ArticleDi
     val article = getItem(position)
     holder.apply {
       bind(createOnClickListener(article.articleId), article)
+      Log.v("RSS", " bind(createOnClickListener(article.articleId), article): " + article.articleId)
       itemView.tag = article
     }
   }
@@ -48,9 +51,9 @@ class ArticleAdapter : ListAdapter<Article, ArticleAdapter.ViewHolder>(ArticleDi
 
   private fun createOnClickListener(articleId: String): View.OnClickListener {
     return View.OnClickListener {
-      //      val direction =
-//        ArticleListFragmentDirections.ActionArticleListFragmentToArticleDetailFragment(articleId)
-//      it.findNavController().navigate(direction)
+      Log.v("RSS", "createOnClickListener: $articleId")
+      val direction = HomeFragmentDirections.ActionHomeDestToArticleDetailsDest(articleId)
+      it.findNavController().navigate(direction)
     }
   }
 

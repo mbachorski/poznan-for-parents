@@ -14,9 +14,9 @@
 
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="240dp"
       android:onClick="@{clickListener}">
-    
+
     <ImageView
         android:id="@+id/article_item_image"
         android:layout_width="0dp"
@@ -39,6 +39,7 @@
         android:layout_marginBottom="@dimen/margin_normal"
         android:layout_marginEnd="@dimen/margin_small"
         android:layout_marginStart="@dimen/margin_small"
+        android:ellipsize="end"
         android:layout_marginTop="@dimen/margin_small"
         android:text="@{article.description}"
         android:textAppearance="?attr/textAppearanceListItem"
