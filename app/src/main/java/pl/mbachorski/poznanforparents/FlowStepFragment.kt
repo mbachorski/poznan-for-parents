@@ -22,6 +22,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.transition.ChangeBounds
+import androidx.transition.TransitionInflater
 
 class FlowStepFragment : Fragment() {
 
@@ -36,6 +38,11 @@ class FlowStepFragment : Fragment() {
       // Uses type-safe arguments:
       val safeArgs = FlowStepFragmentArgs.fromBundle(it)
       val flowStepNumber = safeArgs.flowStepNumber
+    }
+
+    val transition = TransitionInflater.from(this.activity).inflateTransition(android.R.transition.move)
+    sharedElementEnterTransition = ChangeBounds().apply {
+      enterTransition = transition
     }
 
     return inflater.inflate(R.layout.flow_step_one_fragment, container, false)
