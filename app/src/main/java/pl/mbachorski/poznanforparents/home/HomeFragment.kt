@@ -21,6 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -70,8 +71,9 @@ class HomeFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
+    ViewCompat.setTransitionName(home_small_image, HOME_TO_STEP_ONE_TRANSITION_NAME)
     view.findViewById<Button>(R.id.navigate_action_button)?.setOnClickListener {
-      val extras = FragmentNavigatorExtras(home_small_image to "hawaii")
+      val extras = FragmentNavigatorExtras(home_small_image to HOME_TO_STEP_ONE_TRANSITION_NAME)
       val action = HomeFragmentDirections.nextAction()
       action.flowStepNumber = 1
       findNavController().navigate(action, extras)

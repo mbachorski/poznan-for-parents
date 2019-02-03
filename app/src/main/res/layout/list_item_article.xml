@@ -17,6 +17,7 @@
       android:layout_height="240dp"
       android:onClick="@{clickListener}">
 
+    <!-- transition name not set here as it has to be unique - look at adapter -->
     <ImageView
         android:id="@+id/article_item_image"
         android:layout_width="0dp"

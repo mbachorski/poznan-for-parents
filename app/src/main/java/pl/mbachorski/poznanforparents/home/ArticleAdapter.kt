@@ -20,44 +20,55 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.view.ViewCompat
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import pl.mbachorski.poznanforparents.R
 import pl.mbachorski.poznanforparents.databinding.ListItemArticleBinding
 import pl.mbachorski.rss.data.Article
 
 /**
  * Adapter for the [RecyclerView] in [ArticleListFragment].
  */
-class ArticleAdapter : ListAdapter<Article, ArticleAdapter.ViewHolder>(ArticleDiffCallback()) {
+class ArticleAdapter :
+  ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(ArticleDiffCallback()) {
 
-  override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+  override fun onBindViewHolder(holderArticle: ArticleViewHolder, position: Int) {
     val article = getItem(position)
-    holder.apply {
-      bind(createOnClickListener(article.articleId), article)
+    holderArticle.apply {
+      bind(createOnClickListener(article.articleId, position), article)
       Log.v("RSS", " bind(createOnClickListener(article.articleId), article): " + article.articleId)
       itemView.tag = article
     }
   }
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-    return ViewHolder(
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
+    return ArticleViewHolder(
       ListItemArticleBinding.inflate(
         LayoutInflater.from(parent.context), parent, false
       )
     )
   }
 
-  private fun createOnClickListener(articleId: String): View.OnClickListener {
+  private fun createOnClickListener(articleId: String, position: Int): View.OnClickListener {
     return View.OnClickListener {
+      val view = it.findViewById<ImageView>(R.id.article_item_image)
       Log.v("RSS", "createOnClickListener: $articleId")
-      val direction = HomeFragmentDirections.ActionHomeDestToArticleDetailsDest(articleId)
-      it.findNavController().navigate(direction)
+      Log.v("RSS", "createOnClickListener: $view")
+      Log.v("RSS", "setting TRANSITION:[test$position]")
+      ViewCompat.setTransitionName(view, articleId)
+
+      val extras = FragmentNavigatorExtras(view to "test$position")
+      val direction = HomeFragmentDirections.ActionHomeDestToArticleDetailsDest(articleId, "test$position")
+      it.findNavController().navigate(direction, extras)
     }
   }
 
-  class ViewHolder(
+  class ArticleViewHolder(
     private val binding: ListItemArticleBinding
   ) : RecyclerView.ViewHolder(binding.root) {
 

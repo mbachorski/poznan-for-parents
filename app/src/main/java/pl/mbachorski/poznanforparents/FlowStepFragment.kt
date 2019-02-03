@@ -20,10 +20,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.transition.ChangeBounds
 import androidx.transition.TransitionInflater
+import pl.mbachorski.poznanforparents.home.HOME_TO_STEP_ONE_TRANSITION_NAME
 
 class FlowStepFragment : Fragment() {
 
@@ -40,12 +42,17 @@ class FlowStepFragment : Fragment() {
       val flowStepNumber = safeArgs.flowStepNumber
     }
 
-    val transition = TransitionInflater.from(this.activity).inflateTransition(android.R.transition.move)
+    // assign transitionName to image - same as in home fragment
+    val view = inflater.inflate(R.layout.flow_step_one_fragment, container, false)
+    view.findViewById<ImageView>(R.id.step_one_big_image).transitionName = HOME_TO_STEP_ONE_TRANSITION_NAME
+
+    val transition =
+      TransitionInflater.from(this.activity).inflateTransition(android.R.transition.move)
     sharedElementEnterTransition = ChangeBounds().apply {
       enterTransition = transition
     }
 
-    return inflater.inflate(R.layout.flow_step_one_fragment, container, false)
+    return view
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

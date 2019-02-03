@@ -10,15 +10,6 @@
       android:background="#FF0000"
       tools:context="pl.mbachorski.poznanforparents.home.HomeFragment">
 
-    <ImageView
-        android:id="@+id/home_small_image"
-        android:transitionName="hawaii"
-        android:layout_width="240dp"
-        android:layout_height="120dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/hawaii"/>
-
     <TextView
         android:id="@+id/text"
         android:layout_width="match_parent"
@@ -40,6 +31,14 @@
         android:text="@string/next_step_button"
         app:layout_constraintTop_toBottomOf="@+id/text"/>
 
+    <ImageView
+        android:id="@+id/home_small_image"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/navigate_action_button"
+        android:src="@drawable/hawaii"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/article_list"
         android:layout_width="match_parent"
@@ -49,7 +48,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/navigate_action_button"/>
+        app:layout_constraintTop_toBottomOf="@+id/home_small_image"/>
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -9,7 +9,6 @@
 
   <ImageView
       android:id="@+id/step_one_big_image"
-      android:transitionName="hawaii"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:scaleType="centerCrop"
