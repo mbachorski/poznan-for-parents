@@ -1,13 +1,13 @@
 package pl.mbachorski.rss.data
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import timber.log.Timber
 
 const val DATABASE_NAME = "articles.db"
 
@@ -28,14 +28,14 @@ abstract class AppDatabase : RoomDatabase() {
     }
 
     private fun buildDatabase(context: Context): AppDatabase {
-      Log.v("RSS", "build db")
+      Timber.tag("RSS").v("build db")
       return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
         .addCallback(object : RoomDatabase.Callback() {
           override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
             val request = OneTimeWorkRequestBuilder<SeedDatabaseWorker>().build()
             WorkManager.getInstance().enqueue(request)
-            Log.v("RSS", "seed request enqueued")
+            Timber.tag("RSS").v("seed request enqueued")
           }
         })
         .allowMainThreadQueries() // TODO: remove in the future?

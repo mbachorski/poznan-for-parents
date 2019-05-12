@@ -16,7 +16,6 @@
 
 package pl.mbachorski.poznanforparents.home
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView
 import pl.mbachorski.poznanforparents.R
 import pl.mbachorski.poznanforparents.databinding.ListItemArticleBinding
 import pl.mbachorski.rss.data.Article
+import timber.log.Timber
 
 /**
  * Adapter for the [RecyclerView] in [ArticleListFragment].
@@ -41,7 +41,8 @@ class ArticleAdapter :
     val article = getItem(position)
     holderArticle.apply {
       bind(createOnClickListener(article.articleId, position), article)
-      Log.v("RSS", " bind(createOnClickListener(article.articleId), article): " + article.articleId)
+      Timber.tag("RSS")
+        .v(" bind(createOnClickListener(article.articleId), article): %s", article.articleId)
       itemView.tag = article
     }
   }
@@ -57,13 +58,14 @@ class ArticleAdapter :
   private fun createOnClickListener(articleId: String, position: Int): View.OnClickListener {
     return View.OnClickListener {
       val view = it.findViewById<ImageView>(R.id.article_item_image)
-      Log.v("RSS", "createOnClickListener: $articleId")
-      Log.v("RSS", "createOnClickListener: $view")
-      Log.v("RSS", "setting TRANSITION:[test$position]")
+      Timber.tag("RSS").v("createOnClickListener: $articleId")
+      Timber.tag("RSS").v("createOnClickListener: $view")
+      Timber.tag("RSS").v("setting TRANSITION:[test$position]")
       ViewCompat.setTransitionName(view, articleId)
 
       val extras = FragmentNavigatorExtras(view to "test$position")
-      val direction = HomeFragmentDirections.ActionHomeDestToArticleDetailsDest(articleId, "test$position")
+      val direction =
+        HomeFragmentDirections.ActionHomeDestToArticleDetailsDest(articleId, "test$position")
       it.findNavController().navigate(direction, extras)
     }
   }

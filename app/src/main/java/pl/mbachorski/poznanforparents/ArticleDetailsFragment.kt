@@ -17,7 +17,6 @@
 package pl.mbachorski.poznanforparents
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +29,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import kotlinx.android.synthetic.main.article_details_fragment.*
 import pl.mbachorski.rss.RssFactory
+import timber.log.Timber
 
 
 class ArticleDetailsFragment : Fragment() {
@@ -51,20 +51,19 @@ class ArticleDetailsFragment : Fragment() {
       val safeArgs = ArticleDetailsFragmentArgs.fromBundle(it)
       articleId = safeArgs.articleId
       transitionName = safeArgs.transitionName
-      Log.v("RSS", "ArticleDetailsFragment articleId: $articleId")
+      Timber.tag("RSS").v("ArticleDetailsFragment articleId: $articleId")
 
-      Log.v("RSS", "received TRANSITION:[$transitionName]")
+      Timber.tag("RSS").v("received TRANSITION:[$transitionName]")
       imageTransitionName = transitionName
     }
 
     val view = inflater.inflate(R.layout.article_details_fragment, container, false)
     val imageView = view.findViewById<ImageView>(R.id.articleDetailImage)
-    Log.v(
-      "RSS",
-      "ImageView in details found, and transition name($imageTransitionName) set: $imageView"
-    )
+    Timber.tag("RSS")
+      .v(
+        "ImageView in details found, and transition name($imageTransitionName) set: $imageView"
+      )
     imageView.transitionName = imageTransitionName
-
 
     val transition =
       TransitionInflater.from(this.activity).inflateTransition(android.R.transition.move)

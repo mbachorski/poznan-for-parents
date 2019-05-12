@@ -7,6 +7,7 @@ import androidx.work.WorkerParameters
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
+import timber.log.Timber
 
 const val ARTICLES_DATA_FILENAME = "articles.json"
 
@@ -23,13 +24,13 @@ class SeedDatabaseWorker(context: Context, workerParams: WorkerParameters) :
       jsonReader = JsonReader(inputStream.reader())
       val articleList: List<Article> = Gson().fromJson(jsonReader, articleType)
 
-      Log.v("RSS", "Inserting to DB: " + articleList.size)
+      Timber.tag("RSS").v("Inserting to DB: " + articleList.size)
 
       val database = AppDatabase.getInstance(applicationContext)
       database.articleDao().insertAll(articleList)
 
 
-      Log.v("RSS", "Inserted to DB size: " + database.articleDao().getArticles().value?.size)
+      Timber.tag("RSS").v("Inserted to DB size: " + database.articleDao().getArticles().value?.size)
 
       Result.success()
     } catch (ex: Exception) {

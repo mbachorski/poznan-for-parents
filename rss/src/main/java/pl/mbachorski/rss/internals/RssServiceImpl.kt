@@ -1,6 +1,5 @@
 package pl.mbachorski.rss.internals
 
-import android.util.Log
 import io.reactivex.subjects.PublishSubject
 import me.toptas.rssconverter.RssConverterFactory
 import me.toptas.rssconverter.RssFeed
@@ -11,6 +10,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
+import timber.log.Timber
 
 internal class RssServiceImpl : RssService {
 
@@ -20,21 +20,21 @@ internal class RssServiceImpl : RssService {
     .build()
 
   override fun subscribeForFeed(subject: PublishSubject<List<RssFeedItem>>) {
-    Log.v("RSS", "Subscribe for feed")
+    Timber.tag("RSS").v("Subscribe for feed")
 
     val rssApi = retrofit.create(RssApi::class.java)
     rssApi.getRss("news")
       .enqueue(object : Callback<RssFeed> {
         override fun onResponse(call: Call<RssFeed>, response: Response<RssFeed>) {
-          Log.v("RSS", "onSuccess")
-          Log.v("RSS", "Items size: ${response.body().items}")
+          Timber.tag("RSS").v("onSuccess")
+          Timber.tag("RSS").v("Items size: ${response.body().items}")
 
           convertAndNotifySubject(response, subject)
         }
 
         override fun onFailure(call: Call<RssFeed>, t: Throwable) {
           // Show failure message
-          Log.v("RSS", "onFailure")
+          Timber.tag("RSS").v("onFailure")
           t.printStackTrace()
         }
       })

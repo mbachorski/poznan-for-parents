@@ -1,7 +1,6 @@
 package pl.mbachorski.poznanforparents
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -18,6 +17,7 @@ import pl.mbachorski.poznanforparents.rss.toArticles
 import pl.mbachorski.rss.RssFactory
 import pl.mbachorski.rss.data.Article
 import pl.mbachorski.rss.domain.RssFeedItem
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
     // INIT RSS DOWNLOADER LISTENER
     subject.subscribe {
-      Log.v("RSS", "onNext: ${it.size}")
+      Timber.tag("RSS").v( "onNext: ${it.size}")
       it.printList()
       repository.insertAll(it.toArticles("CNET"))
     }
@@ -66,14 +66,14 @@ class MainActivity : AppCompatActivity() {
 
 
   private fun logArticlesChange(articles: List<Article>) {
-    Log.v("RSS", "TEST: " + articles.size)
-    articles.forEach { Log.v("RSS", it.toString()) }
+    Timber.tag("RSS").v( "TEST: " + articles.size)
+    articles.forEach { Timber.tag("RSS").v( it.toString()) }
   }
 
   private fun setAppTheme() {
     val prefs = PreferenceManager.getDefaultSharedPreferences(this)
     val value = prefs.getString("theme", "0")
-    Log.v("PREFS", value.toString())
+    Timber.tag("PREFS").v( value.toString())
 
     if (value.toInt() == 0) {
       setTheme(R.style.AppThemeLight_NoActionBar)

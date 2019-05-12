@@ -1,1 +1,1 @@
-include ':app', ':ui', ':rss'
+include ':app', ':ui', ':rss', ':shared_kernel', ':domain'
