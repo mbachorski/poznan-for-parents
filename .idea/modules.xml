@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/domain/domain.iml" filepath="$PROJECT_DIR$/domain/domain.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/poznan-for-parents.iml" filepath="$PROJECT_DIR$/.idea/poznan-for-parents.iml" />
       <module fileurl="file://$PROJECT_DIR$/rss/rss.iml" filepath="$PROJECT_DIR$/rss/rss.iml" />
       <module fileurl="file://$PROJECT_DIR$/shared_kernel/shared_kernel.iml" filepath="$PROJECT_DIR$/shared_kernel/shared_kernel.iml" />
